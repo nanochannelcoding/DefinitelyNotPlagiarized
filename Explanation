@@ -1,0 +1,41 @@
+1. UML Class Diagram Explanation
+The UML class diagram represents the structure of the Battle Simulator and illustrates how the six classes interact with one another. Each class is divided into three sections: its name, attributes (variables), and methods (functions). The diagram also uses symbols to indicate access levels, with + representing public members and - representing private members.
+The Creature class acts as the abstract parent class. It contains the shared attributes and functions that define a creature, including its name, health, attack, defense, speed, and available moves. It also contains two pure virtual functions, getSpecies() and useSpecialAbility(), which must be implemented by any derived class.
+The SubCreature class inherits from Creature and represents the individual creatures available to players. It adds a type attribute and implements the two pure virtual functions inherited from its parent.
+The MoveSet class stores information about each creature's moves, including their names, attack damage, healing, and defensive boosts. It also demonstrates operator overloading and contains the friend function used to check whether creatures have fainted.
+The Battle class manages the actual battle simulation. It stores pointers to the two participating creatures, tracks their defensive states, and maintains a history of previous battle states. It also contains the functions responsible for determining type effectiveness, processing turns, and checking for a winner.
+The BattleState class stores information about the players' health and defense during a battle. It allows the Battle class to access its private attributes through a friend class relationship.
+Finally, the BattleInterface class handles the user-facing portion of the program. It provides the three available creature choices and allows both players to independently select their creatures before starting a battle.
+The relationships between these classes demonstrate inheritance, association, and dependency. Together, they provide the structure needed for the program to function.
+
+2. How the Program Works
+When the program starts, main.cpp creates an instance of the BattleInterface class and calls its start() function. This launches the simulator and displays the available creatures to the first player.
+Each player can choose between three different creatures:
+Flameling (Fire): Attack 18, Defense 12, Speed 16.
+Leafling (Grass): Attack 14, Defense 18, Speed 12.
+Aquafin (Water): Attack 16, Defense 14, Speed 18.
+Each creature starts with 30 health points. Once both players have made their selections, the program creates a Battle object and passes the selected creatures into it.
+The Battle class then determines which player goes first based on their creature's speed. The faster creature attacks first, while the slower creature takes its turn afterward.
+During each turn, players can choose between two moves: an attacking move or a defensive move. Attacking moves deal between 5 and 7 base damage, with double damage dealt when attacking a creature that is weak to that particular type. The type advantages follow the traditional Fire, Grass, and Water triangle.
+Defensive moves increase the creature's defense stat by 3, up to a maximum of 20, and allow it to halve the damage from the next incoming attack.
+After each round, the program displays both creatures' remaining health. This continues until one creature reaches zero health, at which point the battle ends and the surviving creature is declared the winner.
+
+3. Programming Concepts Demonstrated
+Throughout the program, several object-oriented programming concepts and C++ features are demonstrated.
+Encapsulation: Private attributes are used within classes to protect data, while public functions provide controlled access.
+Data Abstraction: The Creature class provides a common structure for creatures without requiring other classes to understand its internal implementation.
+Inheritance: SubCreature inherits the shared attributes and functions from Creature.
+Polymorphism: Creature pointers allow the Battle class to work with different SubCreature objects.
+Virtual Functions: The getSpecies() and useSpecialAbility() functions can be overridden by derived classes.
+Pure Virtual Functions: These functions are declared in Creature and require implementations in derived classes.
+Abstract Class: Creature cannot be instantiated directly because it contains pure virtual functions.
+Operator Overloading: MoveSet overloads the == operator to compare two move objects.
+Friend Function: The faint() function is granted access to Creature's private attributes.
+Standard Template Library (STL): The program uses standard C++ containers to manage its data.
+
+Vector: Used in Creature to store its available moves.
+List: Used in Battle to maintain a history of previous battle states.
+Stack: Used in Battle to determine and manage the order in which players take their turns.
+
+4. Conclusion
+The Battle Simulator combines object-oriented programming principles with a simple turn-based battle system. Its class structure separates creature information, move management, battle mechanics, and player interaction into individual components.
